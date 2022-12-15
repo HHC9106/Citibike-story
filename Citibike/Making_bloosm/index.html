@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>D3: SVG bar chart with value labels (centered)</title>
+	<script type="text/javascript" src="../d3.js"></script>
+	<style type="text/css">
+		/* No style rules here yet */
+	</style>
+</head>
+<svg></svg>
+
+<body>
+	<script type="text/javascript">
+		const width = window.innerWidth;
+		const height = window.innerHeight;
+		const petalColors = ["#ffc8f0", "#cbf2bd", "#afe9ff", "#ffb09e"];
+		const petalPaths = [
+			"M0 0 C50 50 50 100 0 100 C-50 100 -50 50 0 0",
+			// "M-35 0 C-25 25 25 25 35 0 C50 25 25 75 0 100 C-25 75 -50 25 -35 0",
+			// "M0,0 C50,40 50,70 20,100 L0,85 L-20,100 C-50,70 -50,40 0,0",
+			// "M0 0 C50 25 50 75 0 100 C-50 75 -50 25 0 0"
+		];
+		console.log(petalPaths)
+
+		d3.csv("twin_station_making_blossom.csv").then(function (data) {
+			console.log(data)
+			drawflower(data)
+
+			function drawflower(data) {
+				const colorScale = d3
+					.scaleOrdinal()
+					.domain([0,
+						d3.max(data, function (d) {
+							return parseInt(d.b_arrival_ratio);
+						}),
+					])
+					.range(petalColors)
+					.unknown("#fff2b4");
+
+				const sizeScale = d3
+					.scaleLinear()
+					.domain(d3.extent(data, (d) => d.sum_arrival_b))
+					.range([0.1, 0.8]);
+
+			}
+
+			var svg = d3.select("body")
+				.append("svg")
+				.attr("width", 600)
+				.attr("height", 800)
+
+			svg.selectAll("dot")
+				.data(data)
+				.enter().append("circle")
+				//.filter(function (d) { return d.station_b === '"Southpoint Park"' })
+				.style("fill", "red")
+				.attr("r", 3.5)
+				.attr("cx", function (d) { return x(d.b_arrival_ratio)})
+				.attr("cy", function (d) { return y(d.sum_arrival_b)});
+		});
+
+
+
+		// .filter(function(d) { return d.station_b === 'Motorgate'})
+
+
+	</script>
+</body>
+
+</html>

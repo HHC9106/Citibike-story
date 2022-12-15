@@ -1,0 +1,27 @@
+name: Pull citibike station status every five minutes
+on:
+  push:
+    branches:
+      - main
+#   schedule:
+#     - cron: "*/5 * * * *"
+jobs:
+  get-data:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - name: Run
+        run: |
+          pip3 install pandas
+          pip3 install requests
+          python3 ./main.py
+      - name: Commit updates
+        uses: EndBug/add-and-commit@v4
+        with:
+          author_name: bot
+          author_email: bot@example.com
+          message: "add .csv file"
+          add: "*.csv"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

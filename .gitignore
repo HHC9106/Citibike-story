@@ -1,2 +1,6 @@
 data/
 vector/
+
+.DS_Store
+*/.DS_Store
+Citibike/.github/.DS_Store

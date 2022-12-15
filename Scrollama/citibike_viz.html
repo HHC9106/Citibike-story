@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Citi Bike Stations with Character</title>
+  <meta name="description" content="Scrollama: Sticky Overlay Example" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    #scrolly {
+      position: relative;
+      background-color: #f3f3f3;
+      padding: 1rem;
+    }
+
+    article {
+      position: relative;
+      padding: 0;
+      max-width: 20rem;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .sticky-thing {
+      position: -webkit-sticky;
+      position: sticky;
+      left: 0;
+      width: 100%;
+      margin: 0;
+      background-color: #8a8a8a;
+      background-image: url('./material/context%203d%20map/ai2html-output/Mark-the-3d-map-Artboard_1_copy_2.jpg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      z-index: 0;
+      top: 12.5vh;
+      height: 75vh;
+      /* Center everything inside */
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .sticky-thing p {
+      text-align: start;
+      margin-left: 1rem;
+      font-size: 8rem;
+      font-weight: 900;
+      color: #fff;
+    }
+
+    .step .fit-picture {
+      display: flex;
+      align-items: center;
+      color: #fff;
+      max-width: 100%;
+      filter: drop-shadow(0px 0px 5px rgba(255, 255, 255, 0.8))
+    }
+
+    .step {
+      margin: 0 auto 2rem auto;
+      margin-bottom: 2rem;
+      color: #fff;
+      background-color: rgba(255, 255, 255, 0%);
+    }
+
+    .step-large {
+      margin: 0 auto 2rem auto;
+      margin-bottom: 2rem;
+      width: 80vw;
+      color: #fff;
+      background-color: rgba(255, 255, 255, 0%);
+    }
+
+    .step:first-child {
+      background-color: rgb(124 225 128/0%);
+      margin-bottom: 3rem;
+    }
+
+    .step:last-child {
+      margin-bottom: 0;
+      background-position: center;
+    }
+
+    .step.is-active p {
+      background-color: rgb(124 225 128/50%);
+      margin-bottom: 8rem;
+      color: #3b3b3b;
+    }
+
+    .step p {
+      text-align: center;
+      margin-bottom: 8rem;
+      padding: 1rem;
+      font-size: 1.5rem;
+      background-color: #3b3b3b;
+    }
+
+    .title {
+      border-bottom: solid 1px #f7f7f7;
+    }
+
+    #station-flower{
+      transform: translate(-368px, 0px);
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <section id="intro">
+      <h1 class="intro__hed">Citi Bike Stations with Character</h1>
+      <p class="intro__dek">
+        Explore the characters by scrolling
+      </p>
+    </section>
+
+    <section id="scrolly">
+      <div class="sticky-thing">
+        <p></p>
+      </div>
+
+      <article>
+        <div class="step">
+          <img class="fit-picture" src="./material/station drawing/collage-04.png" </image>
+        </div>
+        <div class="step" data-step="The highest Station" data-color="red"
+          data-image=url('./material/context%203d%20map/ai2html-output/Mark-the-3d-map-Artboard_1_copy_2.jpg')>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+            ea commodo consequat.</p>
+        </div>
+        <div class="step">
+          <image>
+            <img class="fit-picture" src="./material/station drawing/collage-08.png" </image>
+        </div>
+        <div class="step" data-step="The most connected Station"
+          data-image=url('./material/context%203d%20map/ai2html-output/Mark-the-3d-map-Artboard_1_copy_3.jpg')>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+            ea commodo consequat.</p>
+        </div>
+
+        <div class="step">
+          <image>
+            <img class="fit-picture" src="./material/station drawing/collage-05.png" </image>
+        </div>
+        <div class="step-large" data-step="The twin station 1" data-color="green"
+          data-image=url('./material/context%203d%20map/ai2html-output/Mark-the-3d-map-Artboard_1.jpg')>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+            ea commodo consequat.</p>
+        <svg id="station-flower"></svg>
+
+        </div>
+
+
+        <div class="step">
+          <image>
+            <img class="fit-picture" src="./material/station drawing/collage-05.png" </image>
+        </div>
+        <div class="step" data-step="The twin station 2"
+          data-image=url('./material/context%203d%20map/ai2html-output/Mark-the-3d-map-Artboard_1_copy.jpg')>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+            ea commodo consequat.</p>
+        </div>
+      </article>
+    </section>
+
+    <section id="outro"></section>
+  </main>
+
+  <!-- <div class='debug'></div> -->
+  <script src="https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js"></script>
+  <script src="https://unpkg.com/scrollama"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.7.0/d3.min.js"
+    integrity="sha512-7RUyhA5mpSkxSGGdw1vL6ZLL2GzWPvf/aQ4M8cpXkZiSpCvWb5rgygK+VzUpyXx4vPc0ahrS53nymFbGOQ7ubg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="flower.js"></script>
+  <script>
+    // using d3 for convenience
+    var main = document.querySelector("main");
+    var scrolly = main.querySelector("#scrolly");
+    var sticky = scrolly.querySelector(".sticky-thing");
+    var article = scrolly.querySelector("article");
+    var steps = article.querySelectorAll(".step");
+
+    // initialize the scrollama
+    var scroller = scrollama();
+
+    // scrollama event handlers
+    function handleStepEnter(response) {
+      // response = { element, direction, index }
+      const el = response.element;
+      const index = response.index
+      const list = document.querySelectorAll(stepQuery)
+
+
+
+      //create a function to call different content that you request like image, step
+      function setDatasets(el, elementList, datesetKey, callback) {
+
+        if (el.dataset[datesetKey]) {
+          callback(el.dataset[datesetKey])
+          return 0;
+        }
+
+        const nextEl = list[index + 1]
+        nextEl ?? dataset[datesetKey] ? callback(nextEl.dataset[datesetKey]) : null;
+      }
+
+      // input element, list of index, and the content I want, and put the d(callout) to the line
+      setDatasets(el, list, 'image', (d) => sticky.style.backgroundImage = d)
+      setDatasets(el, list, 'step', (d) => sticky.querySelector("p").innerHTML = `<span class="title">Citi Bike:</span><br/> ${d}`)
+
+      // if(el.dataset.image){
+      //   sticky.style.backgroundImage = el.dataset.image
+      // }else if(nextEl && nextEl.dataset.image){
+      //   sticky.style.backgroundImage = nextEl.dataset.image
+      // }
+
+
+      // if(el.dataset.step){
+      //   sticky.querySelector("p").innerHTML = `<span class="title">Citi Bike:</span><br/> ${el.dataset.step}`
+      // }else if(nextEl && nextEl.dataset.step){
+      //   sticky.querySelector("p").innerHTML = `<span class="title">Citi Bike:</span><br/> ${nextEl.dataset.step}`
+      // }
+
+
+
+
+
+      // remove is-active from all steps
+      // then add is-active to this step
+      steps.forEach(step => step.classList.remove('is-active'));
+      el.classList.add('is-active');
+      // if (el.dataset.color){
+      //   sticky.style.backgroundColor= el.dataset.color
+      // }else{
+      //   sticky.style.backgroundColor= "black"
+      // }
+
+      sticky.style.backgroundColor = el.dataset.color ?? 'black'
+      sticky.querySelector("p").style.fontSize = `3rem`;
+
+
+    }
+
+    const stepQuery = '#scrolly article .step'
+
+    function init() {
+      // 2. setup the scroller passing options
+      // 		this will also initialize trigger observations
+      // 3. bind scrollama event handlers (this can be chained like below)
+      scroller
+        .setup({
+          step: stepQuery,
+          offset: 0.7,
+          debug: true
+        })
+        .onStepEnter(handleStepEnter);
+
+      // setup resize event
+      window.addEventListener("resize", scroller.resize);
+    }
+
+    // kick things off
+    init();
+  </script>
+</body>
+
+</html>

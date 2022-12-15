@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>D3: SVG bar chart with value labels (centered)</title>
+    <script type="text/javascript" src="../d3.js"></script>
+    <style type="text/css">
+        /* No style rules here yet */
+        body{
+            display: flex;
+            flex-direction: column;
+        }
+
+        .buttons{
+            display: flex;
+            flex-direction: row;
+        }
+
+        .boro-button{
+            margin-right: 1rem;
+            padding: 0.5rem 0.2rem;
+        }
+
+    </style>
+</head>
+
+<body>
+    <h2 id="title">Manhattan</h2>
+    <div class="buttons">
+        <button class="boro-button" data-boronum="1">manhattan</button>
+        <button class="boro-button" data-boronum="2">bronx</button>
+        <button class="boro-button" data-boronum="3">brooklyn</button>
+        <button class="boro-button" data-boronum="4">queens</button>    
+    </div>
+    <script type="text/javascript">
+        d3.csv("twin_station_data.csv").then(function (data) {
+            console.log(data)
+            scatterPlot(data)
+        });
+
+        function scatterPlot(data) {
+            var w = 800;
+            var h = 600;
+            var padding = 20;
+            var xScale = d3.scaleLinear()
+                .domain([0, d3.max(data, data => data.sum)])
+                .rangeRound([0, w-padding*2])
+
+            var yScale = d3.scaleLinear()
+                .domain([0, d3.max(data, data => data.balance)])
+                .range([h-padding, 0]);
+            const uniqueValues = Array.from(new Set(data.map(i => i.boro_mix)))
+            const colorScale = d3.scaleOrdinal(d3.schemeCategory10).domain(uniqueValues)
+
+            console.log(colorScale('11'))
+
+            //Create SVG element
+            var svg = d3.select("body")
+                .append("svg")
+                .attr("width", w)
+                .attr("height", h)
+                // .attr("transform", "translate(0, 0)")
+                .attr("viewBox", [0, 0, w + padding * 2, h + padding * 2])
+
+
+            function createCircles(svg, data, boroNum = '1') {
+                const circles = svg.selectAll("circle")
+                    .data(data.filter(d => d.boro_mix.includes(boroNum)))
+
+                const circlesEnter = circles.enter().append("circle")
+                circles.exit().remove()
+
+                circlesEnter.merge(circles).attr("cx", function (d) {
+                    return xScale(d.sum);
+                })
+                    .attr("cy", function (d) {
+                        return yScale(d.balance)
+                    })
+                    .attr("r", 3)
+                    .style("fill", d => colorScale(d.boro_mix))
+                    .attr("opacity",.6);
+
+                return circles
+
+            }
+
+            createCircles(svg, data, '1')
+
+
+            const buttons = document.querySelectorAll('.boro-button')
+            Array.from(buttons).forEach(button => {
+                const boroNum = button.dataset.boronum
+                button.addEventListener('click', () => {
+
+                    createCircles(svg, data, boroNum)
+                    document.querySelector('#title').innerText = button.innerText
+
+                })
+            })
+        }
+    </script>
+</body>
+
+</html>

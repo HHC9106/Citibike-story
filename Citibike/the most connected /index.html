@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>D3: SVG bar chart with value labels (centered)</title>
+	<script type="text/javascript" src="../d3.js"></script>
+	<style type="text/css">
+		/* No style rules here yet */
+		.start-end-bar:hover {
+			opacity: 0.6;
+		}
+	</style>
+</head>
+
+<body>
+	<script type="text/javascript">
+		//ASSIGNMENT: familiarizing youself with drawing in svg 
+		//1. change the bar chart orientation so that it is horizontal(bars go across) instead of vertical, changing the placement of text as well to keep the number labels at the end of each bar
+		//2. change the bar chart colors so that instead of shades of blue, the colors are shades of red or green. (r,g,b)
+
+		//Width and height
+
+		d3.csv("df_connected_top40.csv").then(function (data) {
+			console.log(data)
+			drawbarChart(data)
+
+		});
+
+		function drawbarChart(data) {
+			//Width and height
+			var w = 1000;
+			var h = 600;
+			var padding = 40;
+
+			const xScale = d3.scaleBand()
+				.domain(d3.range(data.length))
+				.rangeRound([100, w])
+				.paddingInner(0.05);
+
+			const yScale = d3.scaleLinear()
+				.domain([
+					0,  //Because I want a zero baseline
+					d3.max(data, function (d) { return parseFloat(d["sum"]) })
+				])
+				.range([h, 0]);
+
+			console.log(yScale(d3.max(data, function (d) { return parseFloat(d["sum"]); })),d3.max(data, function (d) { return parseFloat(d["sum"]); }))
+
+			//Create SVG element
+			var svg = d3.select("body")
+				.append("svg")
+				.attr("width", w)
+				.attr("height", h)
+				.attr("transform", "translate(-80, 0)")
+				.attr("viewBox",[0,0,w+padding,h+padding*2])
+				.on("click", function () {
+					sortBars();
+				});
+
+			svg.append("text")
+				.attr("transform", "translate(100,-10)")
+				.attr("x", 50)
+				.attr("y", 50)
+				.attr("font-size", "24px")
+				.text("The most Connected Citibike Station")
+
+			const yAxis = svg.append("g")
+				.attr("transform", `translate(${padding*2},0)`)
+				.call(d3.axisLeft(yScale))
+
+			//  g.append("g")
+			//  .attr("transform", "translate(0," + h + ")")
+			//  .call(d3.axisBottom(xScale)).tickFormat(d => d)
+			//  .append("text")
+			//  .attr("y", h - 250)
+			//  .attr("x", w - 100)
+			//  .attr("text-anchor", "end")
+			//  .attr("stroke", "black")
+			//  .text("Station");
+
+			// yAxis.append("g")
+			// 	.call(d3.axisLeft(yScale).tickFormat(d => d + " trips")
+			// 		.ticks(10))
+			// // .append("text")
+			// // .attr("transform", "rotate(0)")
+			// // .attr("y", 20)
+			// // .attr("dy", "-5.1em")
+			// // .attr("text-anchor", "end")
+			// // .attr("stroke", "black")
+			// // .text("The sum of trip");
+
+
+			const bars = svg.selectAll(".start-end-bar")
+				.data(data)
+				.enter()
+				.append("g")
+				.attr('class', 'start-end-bar')
+				.attr("transform", function (d, i) {
+					return `translate(${xScale(i)} 0)`
+				})
+
+
+
+			bars.append("rect")
+				//HINT: start by switching the x and y values with eachother, and the width and height values with eachother. 
+				//then adjust the y values such that they align on the bottom.
+				.attr("y", function (d) {
+					return yScale(d.start)
+				})
+				.attr("width", 20)
+				.attr("height", d => yScale(0) - yScale(d.start))
+				.attr("opacity", .5)
+
+			bars.append("rect")
+				//HINT: start by switching the x and y values with eachother, and the width and height values with eachother. 
+				//then adjust the y values such that they align on the bottom.
+				.attr("y", function (d) {
+					return yScale(d.sum)
+				})
+				.attr("width", 20)
+				.attr("height", function (d) {
+					return yScale(0) - yScale(+d.end)
+				})
+				.attr("fill", function (d) {
+					return "red";
+				})
+				.attr("opacity", .5)
+
+			bars.append('title').text(d => `${d.station}\nStart Trips: ${+d.start}\nEnd Trips: ${+d.end}`)
+
+			function sortBars() {
+				bars.sort(function (a, b) {
+					return d3.ascending(+a.sum, +b.sum);
+				})
+					.transition()
+					.duration(1000)
+					.attr("transform", function (d, i) {
+						return `translate(${xScale(i)} 0)`
+					})
+			}
+		}
+
+
+
+
+	</script>
+</body>
+
+</html>
